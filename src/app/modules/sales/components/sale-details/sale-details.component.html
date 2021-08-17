@@ -1,0 +1,47 @@
+<div class="container my-5 rounded-sm">
+  <div class="row w-75 mx-auto" *ngIf="isLoaded">
+    <!-- <div class="col-sm-12 col-md-6 text-center my-auto">
+      <span>
+        <i class="fa fa-image display-3" aria-hidden="true"></i>
+      </span>
+    </div> -->
+    <div class="col-sm-12 col-md-6 card mx-auto rounded">
+      <div class="details">
+        <p class="text-uppercase mb-1">
+          {{ transaction.transactionNumber }}
+        </p>
+        <div class="d-flex justify-content-between">
+          <p class="sibasi-heading1">
+            {{ transaction.status }}
+          </p>
+          <p class="lead float-right">{{ transaction.paymentTerm }}</p>
+        </div>
+
+        <div class="cost d-flex justify-content-between">
+          <p class="h4">{{ transaction.total | currency: "Ksh " }}</p>
+          <p class="h4">{{ transaction?.customer?.name }}</p>
+        </div>
+      </div>
+      <div class="desccription">
+        Your transaction contains the following items
+        <ul *ngFor="let item of transaction.items">
+          <li>{{ item.name }}</li>
+        </ul>
+
+        <div class="actions">
+          <button
+            class="btn float-right btn-outline-primary py-1 my-2"
+            (click)="getReceipt(transaction)"
+          >
+            Get receipt
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row my-auto" *ngIf="!isLoaded">
+    <div class="col">
+      <p class="text-center">Getting your transaction details</p>
+    </div>
+  </div>
+</div>

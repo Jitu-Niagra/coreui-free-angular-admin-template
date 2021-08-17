@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between">
+          <p class="sibasi-heading1">Items List</p>
+          <div class="d-flex justify-content-end" *ngIf="items.length != 0">
+            <div class="col-4 mr-1">
+              <button
+                class="btn btn-md-block btn-sm btn-primary text-white px-2"
+                (click)="addItem()"
+              >
+                <i class="fa fa-plus" aria-hidden="true"></i
+                ><span class="m-2">Add</span>
+              </button>
+            </div>
+
+            <div class="col-7" *ngIf="items.length !== 0">
+              <form class="form-inline my-lg-0">
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Search "
+                  name="itemSearch"
+                  [(ngModel)]="itemSearch"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="card-body" *ngIf="!isLoaded">
+          <p class="card-text text-center">Loading your items....</p>
+        </div>
+        <div class="card-body" *ngIf="isLoaded">
+          <div *ngIf="items.length == 0">
+            <span>You have no items currently </span>
+            <button class="btn btn-small btn-primary" (click)="addItem()">
+              Add <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <div class="table-responsive-md" [hidden]="items.length === 0">
+            <table class="table text-center table-borderless table-hover">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Cost</th>
+                  <th scope="col">Price</th>
+
+                  <th scope="col">Category</th>
+
+                  <th scope="col" colspan="2">Action</th>
+                </tr>
+              </thead>
+              <tbody
+                *ngFor="let item of items | filter: itemSearch; let i = index"
+              >
+                <tr class="item">
+                  <th scope="row">
+                    {{ i + 1 }}
+                  </th>
+                  <td
+                    class="btn-link text-primary"
+                    (click)="viewItem(item._id)"
+                  >
+                    {{ item?.name }}
+                  </td>
+                  <td>{{ item?.quantity }}</td>
+                  <td>{{ item?.cost | currency: "Ksh " }}</td>
+                  <td>{{ item?.price | currency: "Ksh " }}</td>
+                  <td>{{ item?.itemCategory?.name }}</td>
+                  <td (click)="editItem(item)" *ngIf="item.inStock === true">
+                    <div
+                      class="
+                        d-flex
+                        align-items-center
+                        justify-content-center
+                        text-success
+                        btn
+                      "
+                    >
+                      <i class="fa fa-edit mr-2" aria-hidden="true"></i>
+                      <span> Edit</span>
+                    </div>
+                  </td>
+                  <td class="text-danger" *ngIf="item.inStock === false">
+                    <i class="fa fa-shopping-cart mr-2" aria-hidden="true"></i>
+                    <span>Out of Stock</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

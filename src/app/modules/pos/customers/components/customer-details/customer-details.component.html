@@ -1,0 +1,128 @@
+<div class="container">
+  <div class="row" *ngIf="isLoaded">
+    <div class="col">
+      <div class="card">
+        <div class="d-flex shadow">
+          <!-- <div class="col col-md-4">
+            <p class="h1 px-2 py-2">
+              <i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i>
+            </p>
+          </div> -->
+
+          <div class="col col-md-4 my-auto">
+            <small class="text-uppercase">username</small>
+            <p class="lead h1">{{ customerDetails.name }}</p>
+          </div>
+
+          <!-- <div class="col col-md-4 my-auto">
+            <small class="text-uppercase">profit</small>
+            <p class="lead h1">{{ 4500 | currency: "Ksh " }}</p>
+          </div> -->
+        </div>
+        <div class="row py-3">
+          <div class="col-6 col-md-3 col-sm-6 d-flex align-items-center">
+            <span
+              ><i
+                class="fa fa-map-marker fa-3x text-primary mx-2"
+                aria-hidden="true"
+              ></i
+            ></span>
+            <div class="location align-self-center">
+              <p class="my-auto">
+                {{ customerDetails.country }}
+              </p>
+              <p class="my-auto">
+                {{ customerDetails.city }} ,
+                {{ customerDetails.region }}
+              </p>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3 col-sm-6 d-flex align-items-center">
+            <span
+              ><i
+                class="fa fa-phone-square fa-2x text-primary mx-2"
+                aria-hidden="true"
+              ></i
+            ></span>
+            <div class="location">
+              <p class="my-auto">
+                {{ customerDetails.phoneNumber }}
+              </p>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3 col-sm-6 d-flex align-items-center">
+            <span
+              ><i
+                class="fa fa-envelope fa-2x text-primary mx-2"
+                aria-hidden="true"
+              ></i
+            ></span>
+            <div class="location align-self-center">
+              <p class="my-auto">{{ customerDetails.email }}</p>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3 col-sm-6 d-flex my-2">
+            <button
+              class="btn btn-success my-auto mx-auto"
+              (click)="editCustomer(customerDetails._id)"
+            >
+              <i class="fa fa-edit fa-1x" aria-hidden="true"></i>
+              <span>Edit </span>
+            </button>
+
+            <button
+              class="btn my-auto btn-danger mr-2"
+              disabled="transaction"
+              (click)="deleteCustomer(customerDetails._id)"
+            >
+              <i class="fa fa-remove fa-1x" aria-hidden="true"></i>
+              <span>Delete </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="isLoaded">
+    <div class="col-md-6 col-12 col-sm-12 shadow">
+      <p class="lead mt-5 ml-3 font-weight-bold h2">Transactions</p>
+      <div
+        class="col-10 details d-flex bg-secondary float-right mb-2 rounded"
+        *ngFor="let transaction of customerDetails.transactions"
+      >
+        <div class="description col-8" *ngIf="customerDetails.transactions">
+          <div class="items">
+            <p>
+              <small>{{ transaction.status }}</small>
+            </p>
+            <p class="card-text">Items</p>
+            <ul *ngFor="let item of transaction.items">
+              <li class="text-primary btn">{{ item.name }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="cost my-auto ml-3">
+          <small class="mt-0">{{ transaction.paymentTerm }}</small>
+          <p class="h6 font-weight-bold text-wrap">
+            {{ transaction.total | currency: "Ksh " }}
+          </p>
+        </div>
+      </div>
+      <div
+        class="col-7 details d-flex bg-secondary float-right mb-2 rounded"
+        *ngIf="!customerDetails.transactions"
+      >
+        <p class="card-text my-2">
+          {{ customerDetails.name }} has performed no transactions
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body" *ngIf="!isLoaded">
+    <p class="card-text text-center">Loading the customer details....</p>
+  </div>
+</div>

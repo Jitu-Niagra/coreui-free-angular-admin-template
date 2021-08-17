@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between">
+          <p class="sibasi-heading1">Manage your stores</p>
+          <div class="d-flex justify-content-end" *ngIf="isLoaded">
+            <button
+              class="btn btn-sm btn-primary text-white mx-2"
+              (click)="addStore()"
+            >
+              <i class="fa fa-plus" aria-hidden="true"></i
+              ><span class="m-2">Add</span>
+            </button>
+
+            <form class="form-inline my-lg-0">
+              <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Search "
+                name="storeSearch"
+                [(ngModel)]="storeSearch"
+              />
+            </form>
+          </div>
+        </div>
+        <div class="card-body" *ngIf="!isLoaded">
+          <p class="card-text text-center">Loading your stores....</p>
+        </div>
+        <div class="card-body" *ngIf="isLoaded">
+          <div class="table-responsive-md">
+            <table class="table text-center table-borderless table-hover">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody
+                *ngFor="
+                  let org of organizations | filter: storeSearch;
+                  let i = index
+                "
+              >
+                <tr class="item">
+                  <th scope="row">
+                    {{ i + 1 }}
+                  </th>
+                  <td class="btn text-primary" (click)="viewStore(org._id)">
+                    {{ org?.name }}
+                  </td>
+                  <td>{{ org.orgType.name }}</td>
+                  <td (click)="editStore(org)">
+                    <div
+                      class="
+                        d-flex
+                        align-items-center
+                        justify-content-center
+                        text-success
+                        btn
+                      "
+                    >
+                      <i class="fa fa-edit mr-2" aria-hidden="true"></i>
+                      <span> Edit</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

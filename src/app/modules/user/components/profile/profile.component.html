@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col card h-100">
+      <div class="row d-flex align-items-center">
+        <div class="col-12 col-md-6 col-sm-12">
+          <div class="user-icon text-center d-sm-flex d-md-block mt-4">
+            <span class="my-auto">
+              <i class="fa fa-user-circle display-4" aria-hidden="true"></i>
+            </span>
+            <div
+              class="
+                mx-2
+                user-details
+                text-center text-sm-left text-md-center
+                my-sm-auto
+              "
+            >
+              <p class="h1">{{ User.firstname }} {{ User.lastname }}</p>
+              <p class="text-uppercase">{{ User.username }}</p>
+              <p>
+                <span
+                  class="my-auto btn text-success"
+                  (click)="editProfile(User)"
+                >
+                  <i class="fa fa-edit fa-2x" aria-hidden="true"></i>
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-sm-12 my-auto border-left">
+          <div class="user-details my-auto">
+            <div class="details d-flex col-12">
+              <span class="mr-2 my-2">
+                <i class="fa fa-map-marker fa-2x" aria-hidden="true "></i>
+              </span>
+              <p class="my-auto lead">{{ User.countryCode }}</p>
+            </div>
+
+            <div class="details d-flex col-12">
+              <span class="mr-2 my-2">
+                <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+              </span>
+              <div *ngFor="let email of User.emails">
+                <p class="my-auto lead">{{ User.emails }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

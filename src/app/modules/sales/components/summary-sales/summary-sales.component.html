@@ -1,0 +1,203 @@
+<div class="animated fadeIn my-5 ml-2">
+  <div class="summary-cards">
+    <div class="row mx-2">
+      <div class="col">
+        <button class="btn btn-primary float-right my-2" (click)="back()">
+          <i class="fa fa-arrow-left ml-1 fa-1x mr-1" aria-hidden="true"></i>
+          <span class="my-auto">Back</span>
+        </button>
+      </div>
+    </div>
+    <div class="row mx-2">
+      <div class="col-sm-6 col-md-4">
+        <div class="card dashboard-product d-block">
+          <span>Transaction</span>
+          <h2 class="dashboard-total-products">
+            {{ transactionSummary.totalNumberOfTransactions }}
+          </h2>
+          <!-- <span class="badge badge-primary mr-2">Ksh 200</span>
+          Today's Transaction -->
+          <div class="side-box p-2">
+            <i
+              class="fa fa-shopping-basket text-primary"
+              aria-hidden="true"
+            ></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-4">
+        <div class="card dashboard-product d-block">
+          <span>Total Sales</span>
+          <h2 class="dashboard-total-products">
+            {{ transactionSummary.totalSales | currency: "Ksh " }}
+          </h2>
+          <!-- <span class="badge badge-danger mr-2">Ksh 600</span>
+          Today's Revenue -->
+          <div class="side-box p-2">
+            <i class="fa fa-money text-danger" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-4">
+        <div class="card dashboard-product d-block">
+          <span>Items</span>
+          <h2 class="dashboard-total-products">
+            {{ transactionSummary.totalNumberOfItems }}
+          </h2>
+          <!-- <span class="badge badge-info mr-2">300</span>
+          Arriving Today -->
+          <div class="side-box p-2">
+            <i class="fa fa-shopping-cart text-info" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-2">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <!-- <button
+              type="button"
+              class="btn"
+              *ngFor="let barChartLabel of barChartLabelsConstant.slice().reverse()"
+              [ngClass]="barChartLabel?.type === selectedBarChartLabelType ? 'btn-secondary':'btn-light'"
+              (click)="changeSelectedChartLabel(barChartLabel)"
+            >
+              {{barChartLabel?.type}}
+            </button> -->
+            <select
+              class="form-select mr-2"
+              aria-label="Default select example"
+              (change)="getSelectedValue($event, barChartTypes.MONTHLY)"
+            >
+              <option selected [value]="reportDetails.year">Select Year</option>
+              <option *ngFor="let year of listOfYears" [value]="year">
+                {{ year }}
+              </option>
+            </select>
+
+            <select
+              class="form-select mr-2"
+              aria-label="Default select example"
+              (change)="getSelectedValue($event, barChartTypes.DAILY)"
+            >
+              <option selected [value]="undefined">Select Month</option>
+              <ng-container *ngIf="selectedYear">
+                <option
+                  *ngFor="let month of listOfMonths"
+                  [value]="month?.value + 1"
+                >
+                  {{ month?.name }}
+                </option>
+              </ng-container>
+              <ng-container *ngIf="!selectedYear">
+                <option [value]="null" disabled>Select an year</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5><b>Bar Chart</b></h5>
+          <div style="display: block">
+            <canvas
+              baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"
+            >
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5><b>Line Chart</b></h5>
+          <div style="display: block">
+            <canvas
+              baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="'line'"
+            >
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <b>Items List</b>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive-md">
+            <table class="table text-center table-borderless table-hover">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Cost</th>
+                  <th scope="col">Price</th>
+
+                  <th scope="col">Category</th>
+
+                  <th scope="col" colspan="2">Action</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let item of Items; let i = index">
+                <tr class="item">
+                  <th scope="row">
+                    <b>{{ i + 1 }}</b>
+                  </th>
+                  <td class="btn">{{ item.name }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>{{ item.cost }}</td>
+                  <td>{{ item.price }}</td>
+                  <td>{{ item.itemCategory.name }}</td>
+                  <td>
+                    <div
+                      class="
+                        d-flex
+                        align-items-center
+                        justify-content-center
+                        text-success
+                        btn
+                      "
+                      (click)="edit(item)"
+                    >
+                      <i class="fa fa-edit mr-2" aria-hidden="true"></i>
+                      <span> Edit</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <a routerLink="/reports/reports" class="btn btn-primary float-right"
+        >Load More</a
+      >
+    </div>
+  </div>
+</div>

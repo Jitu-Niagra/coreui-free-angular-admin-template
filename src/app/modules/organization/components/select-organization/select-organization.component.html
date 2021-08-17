@@ -1,0 +1,112 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="col-auto mx-auto">
+            <img
+              src="assets/img/pos/sibasi POS logo.png"
+              width="200"
+              style="
+                margin: 0 auto;
+                display: block;
+                margin-bottom: 25px;
+                width: 250px;
+              "
+              alt="Sibasi  Logo"
+            />
+          </div>
+        </div>
+        <div class="col-md-6 mx-auto">
+          <div class="card mx-4">
+            <div class="card-header">
+              <div class="row">
+                <div class="col d-flex justify-content-between">
+                  <div class="col-6">
+                    <p class="sibasi-heading1">Select a Store to continue</p>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="row d-flex mx-auto justify-content-end">
+                      <div class="col-auto float-right" *ngIf="!isLoaded">
+                        <button
+                          class="btn btn-sm btn-primary text-white"
+                          (click)="createStore()"
+                        >
+                          <i class="fa fa-plus 1x" aria-hidden="true"></i> Add
+                        </button>
+                      </div>
+                      <!-- <div class="col-auto">
+                        <button
+                          class="btn btn-sm btn-primary text-white"
+                          [routerLink]="['/pos/items']"
+                          *ngIf="organizations.length != 0"
+                        >
+                          Current
+                          <i
+                            class="fa fa-arrow-right 1x"
+                            aria-hidden="true"
+                          ></i>
+                        </button>
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-4" *ngIf="isLoaded">Loading...</div>
+            <div class="card-body p-4" *ngIf="!isLoaded">
+              <table
+                class="table text-center table-borderless"
+                *ngIf="organizations.length != 0"
+              >
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let org of organizations; let i = index">
+                    <td>
+                      <span
+                        ><i class="fa fa-group" aria-hidden="true"></i
+                      ></span>
+                    </td>
+                    <td>
+                      {{ org.name }}
+                    </td>
+                    <td>
+                      {{ org.orgType.name }}
+                    </td>
+
+                    <!-- <td>
+                        <button class="btn badge bg-success" (click)="viewCategory(category)">
+                        <span class="lead">View</span>
+                        </button>
+                        </td> -->
+                    <td>
+                      <button
+                        class="btn btn-sm btn-primary float-right"
+                        (click)="switchToOrganization(org._id)"
+                      >
+                        Switch to
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div [hidden]="organizations.length !== 0">
+                <p class="lead">You have no stores at the moment. Kindly add</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

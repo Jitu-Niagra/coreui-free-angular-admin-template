@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header justify-content-between d-flex">
+          <p class="sibasi-heading1">Item Categories</p>
+          <div class="d-flex justify-content-end" *ngIf="isLoaded">
+            <button
+              class="btn btn-sm btn-primary text-white mx-2"
+              (click)="addCategory()"
+            >
+              <i class="fa fa-plus" aria-hidden="true"></i
+              ><span class="m-2">Add</span>
+            </button>
+
+            <form class="form-inline my-lg-0" *ngIf="categorys.length !== 0">
+              <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Search "
+                name="categorySearch"
+                [(ngModel)]="categorySearch"
+              />
+            </form>
+          </div>
+        </div>
+
+        <div class="card-body" *ngIf="!isLoaded">
+          <p class="card-text text-center">Loading your categories</p>
+        </div>
+
+        <div class="card-body" *ngIf="isLoaded">
+          <div class="table-responsive-md" *ngIf="categorys.length !== 0">
+            <table class="table text-center table-borderless table-hover">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Items</th>
+
+                  <th scope="col" colspan="2">Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr
+                  *ngFor="
+                    let category of categorys | filter: categorySearch;
+                    let i = index
+                  "
+                >
+                  <td>
+                    <span>{{ i + 1 }}</span>
+                  </td>
+                  <td (click)="viewCategory(category)">
+                    <a class="btn text-primary">
+                      {{ category.name }}
+                    </a>
+                  </td>
+                  <td>
+                    <span class="text-dark">{{ category.numberOfItems }}</span>
+                  </td>
+
+                  <!-- <td>
+                        <button class="btn badge bg-success" (click)="viewCategory(category)">
+                        <span class="lead">View</span>
+                        </button>
+                        </td> -->
+                  <td>
+                    <button
+                      class="btn text-success"
+                      (click)="editCategory(category)"
+                    >
+                      <i class="fa fa-edit" aria-hidden="true"></i> Edit
+                    </button>
+                  </td>
+                </tr>
+                <tr [hidden]="categorys">
+                  <p class="lead">You have no categories</p>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="categorys.length == 0">
+            <p class="card-text">You have no category's . Add one category</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

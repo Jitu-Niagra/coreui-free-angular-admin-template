@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <p class="sibasi-heading1">Edit User</p>
+        </div>
+        <form
+          action=""
+          [formGroup]="userForm"
+          (ngSubmit)="submitForm(userForm)"
+        >
+          <div class="card-body">
+            <div class="form-group">
+              <label for="username" class="form-label">Username</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="username"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="firstname" class="form-label">First name</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="firstname"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="lastname" class="form-label">Last name</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="lastname"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="country" class="form-label">Country</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="countryCode"
+              />
+            </div>
+          </div>
+        </form>
+        <div class="card-footer">
+          <button
+            class="btn btn-success"
+            type="submit"
+            (click)="submitForm(userForm)"
+          >
+            Edit
+          </button>
+          <button class="btn btn-danger" (click)="back()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

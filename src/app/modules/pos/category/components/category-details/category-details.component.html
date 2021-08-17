@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+    <div class="col mx-auto rounded">
+      <div class="card">
+        <div class="card-body text-center" [hidden]="isLoaded">
+          <p class="card-text">Getting your category details</p>
+        </div>
+        <div *ngIf="isLoaded">
+          <div class="details card-header">
+            <p class="sibasi-heading1">{{ category.name }}</p>
+          </div>
+          <div class="card-body">
+            <p class="card-text">
+              You have {{ category.numberOfItems | number }} item<span
+                *ngIf="category.numberOfItems > 1"
+                >s</span
+              >
+              in this category
+            </p>
+          </div>
+
+          <div class="actions card-footer">
+            <button
+              class="btn btn-success py-1 mt-1"
+              (click)="editCategory(category)"
+            >
+              Edit
+            </button>
+            <button
+              class="btn btn-danger py-1 mt-2"
+              (click)="deleteCategory(category)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

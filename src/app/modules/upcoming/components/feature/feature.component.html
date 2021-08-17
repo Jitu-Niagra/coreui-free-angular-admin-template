@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="row align-items-center">
+    <div class="col" *ngIf="isLoading">
+      <button class="btn btn-primary my-2" *ngIf="isAdmin" (click)="addEvent()">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Add an event
+      </button>
+      <div id="events" class="carousel slide" data-ride="carousel">
+        <!-- <ol class="carousel-indicators">
+          <li data-target="#events" data-slide-to="0" class="active"></li>
+          <li data-target="#events" data-slide-to="1"></li>
+          <li data-target="#events" data-slide-to="2"></li>
+        </ol> -->
+        <div class="carousel-inner" role="listbox">
+          <div
+            class="carousel-item"
+            [ngClass]="i == 0 ? 'active' : ''"
+            *ngFor="let feature of features; let i = index"
+            interval="2000"
+          >
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <small>{{ feature.createdAt | date }}</small>
+                    <h1>{{ feature.title }}</h1>
+
+                    <p>
+                      {{ feature.description }}
+                    </p>
+                  </div>
+                  <!-- <div class="col-12 col-md-6 text-center">
+                    <span>
+                      <i class="fa fa-image display-3"></i>
+                    </span>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="features.length === 0">
+            <div class="card text-center noEvents">
+              <p class="card-text my-2">
+                There are no upcoming events currently
+              </p>
+              <p class="card-text my-2" *ngIf="!isAdmin">
+                Stay tuned for more updates
+              </p>
+              <p class="card-text my-2" *ngIf="isAdmin">Kindly add</p>
+            </div>
+          </div>
+        </div>
+        <!-- <a
+          class="carousel-control-prev"
+          href="#events"
+          role="button"
+          data-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a
+          class="carousel-control-next"
+          href="#events"
+          role="button"
+          data-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a> -->
+      </div>
+    </div>
+    <div class="col card" *ngIf="!isLoading">
+      <p class="sibasi-heading1 text-center">Loading ....</p>
+    </div>
+  </div>
+</div>

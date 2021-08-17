@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <form action="" [formGroup]="category">
+          <div class="card-header">
+            <p class="sibasi-heading1">Add your category below</p>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="category" class="form-label">Category</label>
+              <input
+                type="text"
+                placeholder="Category Name"
+                formControlName="name"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <button
+              type="submit"
+              *ngIf="!isEdit"
+              [disabled]="!category.valid"
+              (click)="addCategory(category)"
+              class="btn btn-primary"
+            >
+              Add Category
+            </button>
+            <button
+              type="submit"
+              *ngIf="isEdit"
+              [disabled]="!category.valid"
+              (click)="addCategory(category)"
+              class="btn btn-primary"
+            >
+              Edit Category
+            </button>
+
+            <button type="submit" (click)="back()" class="btn btn-primary">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

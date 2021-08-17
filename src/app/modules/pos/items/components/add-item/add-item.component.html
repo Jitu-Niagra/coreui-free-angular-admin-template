@@ -1,0 +1,125 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <form
+          class="needs-validation"
+          [formGroup]="addForm"
+          novalidate
+          (ngSubmit)="submitForm(addForm)"
+        >
+          <div class="card-header">
+            <p class="text-danger">
+              <small>{{ errorMessage }}</small>
+            </p>
+            <p class="sibasi-heading1" *ngIf="!isEdit">Add an item</p>
+            <p class="sibasi-heading1" *ngIf="isEdit">Edit item</p>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="itemName" class="form-label">Item name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                formControlName="name"
+                required
+              />
+              <small class="text-muted">eg: Ngoma rubbers</small>
+            </div>
+
+            <div class="form-group">
+              <label for="itemPrice" class="form-label">Item Price</label>
+              <input
+                type="number"
+                class="form-control"
+                id="price"
+                formControlName="price"
+                required
+              />
+              <small class="text-muted"
+                >How much are you selling the item ?</small
+              >
+            </div>
+            <div class="form-group">
+              <label for="itemQuantity" class="form-label">Item Cost</label>
+              <input
+                type="number"
+                class="form-control"
+                id="quantity"
+                formControlName="cost"
+                required
+              />
+              <small class="text-muted">How much did you buy it ?</small>
+            </div>
+            <div class="form-group">
+              <label for="itemQuantity" class="form-label">Item Quantity</label>
+              <input
+                type="number"
+                class="form-control"
+                id="quantity"
+                formControlName="quantity"
+                required
+              />
+              <small class="text-muted">Total number of items</small>
+            </div>
+
+            <div class="form-group" *ngIf="!addNewCategory">
+              <label for="itemCategory" class="form-label">Category</label>
+              <select
+                class="form-select form-control"
+                id="itemCategory"
+                formControlName="itemCategory"
+              >
+                <option *ngIf="!isEdit" (click)="addCategory()" [value]="null">
+                  Add a new Category
+                </option>
+                <option
+                  *ngFor="let categoryDetail of categoryDetails"
+                  [value]="categoryDetail?._id"
+                >
+                  {{ categoryDetail?.name }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group" *ngIf="addNewCategory">
+              <label for="categoryToAdd" class="form-label"
+                >Add a new category</label
+              >
+              <input
+                type="Text"
+                class="form-control"
+                id="categoryToAdd"
+                formControlName="categoryToAdd"
+              />
+            </div>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <button
+              *ngIf="!isEdit"
+              class="btn btn-primary text-white"
+              type="submit"
+              [disabled]="addForm.invalid"
+            >
+              Add Item
+            </button>
+            <button
+              *ngIf="isEdit"
+              class="btn btn-primary text-white"
+              type="submit"
+              [disabled]="addForm.invalid"
+            >
+              Edit Item
+            </button>
+            <button
+              class="btn btn-primary text-white"
+              [routerLink]="['/pos/items']"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

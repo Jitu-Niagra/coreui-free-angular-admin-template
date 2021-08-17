@@ -1,0 +1,258 @@
+<div class="container my-5">
+  <div class="row mx-2">
+    <div class="col">
+      <button class="btn btn-primary float-right my-2" (click)="back()">
+        <i class="fa fa-arrow-left ml-1 fa-1x mr-1" aria-hidden="true"></i>
+        <span class="my-auto">Back</span>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <p class="sibasi-heading1">Create Sale</p>
+        </div>
+        <div class="card-body" *ngIf="isLoaded">
+          <div class="table-sm-responsive" *ngIf="items.length !== 0">
+            <table class="table text-center table-borderless">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Price</th>
+
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let item of items; let i = index">
+                <tr class="item">
+                  <th scope="row">
+                    {{ i + 1 }}
+                  </th>
+                  <td>
+                    {{ item?.name }}
+                  </td>
+                  <td>{{ item?.quantity }}</td>
+                  <td>{{ item?.price | currency: "Ksh " }}</td>
+                  <td>
+                    <button
+                      (click)="addItem(item)"
+                      class="text-white col-auto btn btn-primary"
+                    >
+                      <i class="fa fa-plus mr-auto" aria-hidden="true"></i>
+                      <span> Add </span>
+                    </button>
+
+                    <!-- <button
+                    (click)="removeItem(item)"
+                    class="text-white btn btn-danger"
+                    *ngIf="selectedItems.length"
+                  >
+                    <i class="fa fa-minus mr-2" aria-hidden="true"></i>
+                    <span> Remove </span>
+                  </button> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="items.length === 0">
+            <p class="card-text">
+              <span
+                class="btn btn-primary mx-1"
+                [routerLink]="['/pos/add-item']"
+              >
+                <i class="fa fa-plus" aria-hidden="true"></i> Add Items</span
+              >
+            </p>
+          </div>
+        </div>
+        <div class="card-body" *ngIf="!isLoaded">
+          <p class="card-text text-center">Loading your items</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4">
+      <div class="card w-auto" *ngIf="itemsIsSelected">
+        <div class="card-header d-flex my-auto">
+          <p class="sibasi-heading1">Bill</p>
+        </div>
+        <div
+          class="
+            card-body
+            d-flex
+            justify-content-between
+            border-bottom
+            shadow-sm
+          "
+          *ngFor="let item of selectedItems"
+        >
+          <div>
+            <p class="sibasi-heading1">{{ item.name }}</p>
+            <p>
+              {{ item.totalItems * item.price | currency: "Ksh " }}
+            </p>
+          </div>
+          <div class="d-flex justify-content-space my-auto">
+            <button
+              class="btn col-4 mr-2 btn-secondary"
+              (click)="reduceItem(item)"
+              [disabled]="item.totalItems === 0"
+            >
+              <i class="fa fa-minus" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-outline-success disabled">
+              {{ item.totalItems }}
+            </button>
+            <button
+              (click)="plusItem(item)"
+              class="btn col-4 btn-secondary ml-2"
+            >
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-footer" *ngIf="!isTransactionComplete">
+          <div class="d-block bg-primary col-auto rounded">
+            <p class="py-2 text-center">
+              <i
+                class="fa fa-money text-dark font-weight-bold"
+                aria-hidden="true"
+              ></i>
+              {{ totalPayment | currency: "Ksh " }}
+            </p>
+          </div>
+          <div class="d-block col-auto rounded">
+            <p class="text-center">Payment Method</p>
+            <div
+              class="
+                d-flex
+                flex-wrap flex-sm-wrap
+                justify-content-between
+                mb-2
+                text-center
+              "
+            >
+              <input
+                class="btn btn-primary text-uppercase ml-2 mt-2"
+                type="button"
+                value="Cash"
+                (click)="paymentMethod('Cash')"
+              />
+              <input
+                class="btn btn-success text-uppercase ml-2 mt-2"
+                type="button"
+                value="MPESA"
+                (click)="paymentMethod('MPESA')"
+              />
+              <input
+                class="btn btn-warning text-uppercase ml-2 mt-2"
+                type="button"
+                value="CARD"
+                (click)="paymentMethod('Card')"
+              />
+            </div>
+          </div>
+          <div class="d-block col-auto rounded text-center mb-2">
+            <p
+              class="btn btn-primary"
+              *ngIf="!addedCustomers"
+              (click)="showCustomers()"
+            >
+              Add Customers
+            </p>
+
+            <ul class="list-group" *ngIf="addedCustomers">
+              <li class="list-group-item">
+                <button
+                  class="btn btn-primary"
+                  [routerLink]="['pos/customers/add']"
+                  *ngIf="customers.length === 0"
+                >
+                  Add Customer
+                </button>
+                <form
+                  *ngIf="customers.length !== 0"
+                  [formGroup]="customersForm"
+                  (ngSubmit)="addCustomers(customersForm)"
+                >
+                  <div
+                    class="input-group mb-3"
+                    formArrayName="customers"
+                    *ngFor="let customer of customers; let i = index"
+                  >
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <input
+                          type="checkbox"
+                          (change)="onChange($event)"
+                          value="{{ customer._id }}"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <label class="form-control"> {{ customer.name }}</label>
+                  </div>
+                  <button
+                    class="btn btn-primary"
+                    type="submit"
+                    (click)="addCustomers(customersForm)"
+                    [disabled]="customersForm.invalid"
+                  >
+                    Add
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="
+              d-block d-flex
+              col-auto
+              rounded
+              btn btn-primary
+              justify-content-center
+            "
+            (click)="viewTransaction()"
+          >
+            <!-- <p (click)="completeTransaction()" class="text-center"> -->
+            Complete transaction
+            <!-- </p> -->
+          </div>
+        </div>
+
+        <div class="card-footer text-center" *ngIf="isTransactionComplete">
+          <div class="d-block col-auto rounded">
+            <p class="py-2 text-center bg-primary rounded">
+              <span class="text-dark"> {{ payMethod }}</span>
+              {{ totalPayment | currency: "Ksh " }}
+            </p>
+            <button class="btn btn-success" (click)="completeTransaction()">
+              Complete transaction
+            </button>
+          </div>
+          <!-- <div
+            class="
+              d-block d-flex
+              align-self-center
+              col-auto
+              rounded
+              btn btn-primary
+
+            "
+          >
+            <p (click)="completeTransaction()" class="text-center">
+              Complete transaction
+            </p>
+          </div> -->
+        </div>
+      </div>
+      <div class="card d-flex my-auto" *ngIf="!itemsIsSelected">
+        <p class="text-center card-text my-4">No sales today</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+
+<button class="btn btn-primary float-right" (click)="back()">
+        <i class="fa fa-arrow-left fa-1x ml-1" aria-hidden="true"></i>
+        <span>Back</span>
+      </button>
+<div class="card mx-auto w-75 h-auto my-5 receipt" *ngIf="transactionDetails">
+  <div class="card-header d-flex justify-content-between">
+    <p class="text-uppercase font-weight-bold my-auto">
+      {{ transactionDetails.paymentTerm }}
+    </p>
+    <div>
+      <div>
+        <p
+          class="badge badge-danger text-center"
+          *ngIf="transactionDetails.isNotMatchingTotals"
+        >
+          Out of Stock Sold
+        </p>
+        <p>
+          {{ transactionDetails.createdAt | date }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div>
+      <p class="text-primary">Hi {{ transactionDetails?.customer?.name }}</p>
+      <p>
+        You've purchased ({{ transactionDetails.items.length }}) items in our
+        store
+      </p>
+    </div>
+    <div>
+      <p class="text-center font-weight-bold">Cart</p>
+      <ul
+        class="list-group"
+        *ngFor="let item of transactionDetails.items; let i = index"
+      >
+        <li
+          class="
+            list-group-item
+            d-flex
+            justify-content-between
+            border-top-0 border-right-0 border-left-0
+          "
+        >
+          <div class="d-flex justify-content-space">
+            <span>{{ 1 + i }} </span>
+            <p class="text-muted ml-1">{{ item.name }}</p>
+          </div>
+          <p>{{ item.totalItems }} * {{ item.price }}</p>
+        </li>
+      </ul>
+    </div>
+    <div class="text-center">
+      <p
+        class="font-weight-bold rounded"
+        *ngIf="!transactionDetails.isNotMatchingTotals"
+      >
+        Total :
+        <span>{{ transactionDetails.total }}</span>
+      </p>
+      <p
+        class="font-weight-bold"
+        *ngIf="transactionDetails.isNotMatchingTotals"
+      >
+        Total :
+        <span>{{ transactionDetails.calculatedTotal }}</span>
+      </p>
+    </div>
+  </div>
+  <div class="card-footer text-center">
+    <button class="btn btn-primary" (click)="printPage()">Print Receipt</button>
+    <a href="mailto:" class="btn btn-primary">Send Email</a>
+  </div>
+</div>
+<div class="card" *ngIf="!transactionDetails">
+  <p class="text-center">Loading your receipt details</p>
+</div>

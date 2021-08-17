@@ -1,0 +1,66 @@
+<!-- Transactions  table -->
+<div class="container">
+  <div class="row my-2 mx-2">
+    <div class="col">
+      <button class="btn btn-primary float-right" (click)="back()">
+        <i class="fa fa-arrow-left fa-1x ml-1" aria-hidden="true"></i>
+        <span>Back</span>
+      </button>
+    </div>
+  </div>
+  <div class="row mx-2">
+    <div class="card mb-1 w-100 h-100 table-responsive-md">
+      <div class="card-header d-flex justify-content-between">
+        <p class="sibasi-heading1">All transactions</p>
+        <button class="btn btn-primary" [routerLink]="['/sales/create-sale']">
+          <i class="fa fa-cart-plus fa-1x" aria-hidden="true"></i> Create a Sale
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="table-md-responsive" *ngIf="transactions">
+          <table
+            class="table text-center table-borderless table-hover"
+            *ngIf="isLoaded"
+          >
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Total</th>
+                <th scope="col">Payment</th>
+
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let transaction of transactions; let i = index">
+              <tr class="item">
+                <th scope="row">
+                  {{ i + 1 }}
+                </th>
+                <td>
+                  <span
+                    (click)="viewTransactionDetails(transaction)"
+                    class="text-primary btn btn-link"
+                  >
+                    {{ transaction?.customer?.name }}</span
+                  >
+                </td>
+                <td>{{ transaction.total | currency: "Ksh " }}</td>
+                <td>{{ transaction.paymentTerm }}</td>
+                <td>{{ transaction.status }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="card-text text-center" *ngIf="!isLoaded">
+            Loading your transactions
+          </p>
+        </div>
+      </div>
+
+      <div class="card-body" *ngIf="!transactions">
+        <p class="card-text">You have no sales</p>
+      </div>
+    </div>
+  </div>
+</div>

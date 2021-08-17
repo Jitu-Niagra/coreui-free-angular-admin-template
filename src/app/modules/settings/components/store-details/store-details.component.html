@@ -1,0 +1,46 @@
+<div class="container my-auto bg-white rounded-sm">
+  <div class="row my-auto" *ngIf="isLoaded">
+    <div class="col-sm-12 col-md-6 text-center my-auto">
+      <span>
+        <i class="fa fa-image display-3" aria-hidden="true"></i>
+      </span>
+    </div>
+    <div class="col-sm-12 col-md-6 bg-secondary mx-auto rounded">
+      <div class="details">
+        <p class="sibasi-heading1">{{ organization.orgType.name }}</p>
+        <div class="cost d-flex justify-content-between">
+          <p class="h4">{{ organization.name }}</p>
+        </div>
+      </div>
+      <div class="desccription">
+        <p>
+          {{ organization.description }}
+        </p>
+        <div class="actions">
+          <button
+            class="
+              btn btn-sm btn-block btn-outline-success
+              rounded-pill
+              py-1
+              mt-2
+            "
+            (click)="editStore(organization)"
+          >
+            Edit
+          </button>
+          <button
+            (click)="deleteStore(organization)"
+            class="btn btn-block btn-outline-danger rounded-pill py-1 mt-1"
+          >
+            Delete Store
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row my-auto" *ngIf="!isLoaded">
+    <div class="col">
+      <p class="text-center">Getting your store details</p>
+    </div>
+  </div>
+</div>

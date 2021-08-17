@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <div class="p sibasi-heading1">Add an event</div>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="featureForm" (ngSubmit)="submitEvent(featureForm)">
+            <div class="form-group">
+              <label for="title" class="form-label">Title</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Feature title"
+                formControlName="title"
+              />
+              <small class="text-muted">How is the feature called</small>
+            </div>
+            <div class="form-group">
+              <label for="description" class="form-label">Description</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Feature description"
+                formControlName="description"
+              />
+              <small class="text-muted"
+                >A brief description of the feature</small
+              >
+            </div>
+          </form>
+        </div>
+
+        <div class="card-footer d-flex justify-content-between">
+          <button class="btn btn-primary" (click)="submitEvent(featureForm)">
+            Add Event
+          </button>
+          <button class="btn btn-success" (click)="cancelEvent()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

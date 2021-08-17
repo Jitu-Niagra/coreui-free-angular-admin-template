@@ -1,0 +1,55 @@
+.dashboard-product {
+  background-color: #fff;
+  color: #777;
+  padding: 15px;
+
+  .dashboard-total-products {
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.badge-warning,
+.label-warning {
+  background-color: #f57c00;
+}
+
+.label {
+  display: inline;
+  padding: 2px 7px;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25em;
+  margin-right: 10px;
+}
+
+.side-box {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 50px;
+  width: 60px;
+  color: #fff;
+  font-size: 26px;
+  border-radius: 0 0 0 100px;
+  text-align: center;
+}
+
+.side-box .sale-icon {
+  position: relative;
+  top: 10px;
+  left: 5px;
+}
+
+.sale-icon::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f142";
+  color: #f57c00;
+}

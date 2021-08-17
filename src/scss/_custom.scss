@@ -1,1 +1,46 @@
 // Here you can add other styles
+@font-face {
+  font-family: YourFontFamily;
+  src: url("/assets/fonts/Varela-Regular.ttf") format("truetype");
+}
+
+* {
+  font-family: "varela", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.sibasi-heading1 {
+  font-weight: bold;
+}
+
+.btn:hover {
+  cursor: pointer !important;
+}
+.btn-primary {
+  background-color: var(--sibasiBlue) !important;
+  border-color: var(--sibasiBlue) !important;
+}
+// .btn-outline-primary {
+//   color: var(--sibasiBlue) !important;
+//   border-color: var(--sibasiBlue) !important;
+// }
+// .btn-outline-primary:hover {
+//   color: white !important;
+//   border-color: var(--sibasiBlue) !important;
+//   background-color: var(--sibasiBlue) !important;
+// }
+.text-primary {
+  color: var(--sibasiBlue) !important ;
+}
+
+// // .btn-success {
+// //   background-color: var(--sibasiLightBlue) !important;
+// //   border-color: var(--sibasiLightBlue) !important;
+// //   color: black !important;
+// // }
+// // .btn-success:hover {
+// //   color: white !important;
+// //   border-color: var(--sibasiBlue) !important;
+// //   background-color: var(--sibasiBlue) !important;
+// // }
